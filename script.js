@@ -25,3 +25,13 @@ function operate(num1, num2, symbol) {
         return divide(num1, num2);
     }
 }
+
+const nums = [];
+const buttons = document.querySelectorAll('button');
+const screen = document.getElementById('screen');
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        nums.push(button.id)
+        screen.innerHTML = nums.join('');
+    })
+})
