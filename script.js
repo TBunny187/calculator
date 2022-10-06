@@ -26,6 +26,14 @@ function operate(num1, num2, symbol) {
     }
 }
 
+function clear() {
+    numsArray.splice(0, numsArray.length) // clear the individual numbers and start from blank
+    nums.splice (0, nums.length); // clear the total numbers, and start from blank
+    symbol = ""; // clear the operator symbol
+    screen.textContent = 0; // make the screen show 0;
+    firstNum = true;
+}
+
 function checkNumber(check) {
     return (check !== 'plus' && check !== 'minus' && check !== 'times' && check !== 'divide' && check !== 'clear' && check !== 'equals')
 }
@@ -39,11 +47,7 @@ const screen = document.getElementById('screen');
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         if(button.id === 'clear') {
-            numsArray.splice(0, numsArray.length) // clear the individual numbers and start from blank
-            nums.splice (0, nums.length); // clear the total numbers, and start from blank
-            symbol = ""; // clear the operator symbol
-            screen.textContent = 0; // make the screen show 0;
-            firstNum = true;
+            clear();
         } 
         else if(checkNumber(button.id)) {
             numsArray.push(button.id)
@@ -66,6 +70,10 @@ buttons.forEach(button => {
             numsArray = [];
         } 
         else if(button.id === 'equals') {
+            if(button.id === 'divide' && (+nums[0] === 0 || +nums[1] === 0)) {
+                alert("Cannot divide by 0! Now you must start over!")
+                clear();
+            }
             nums[1] = numsArray.join('');
             nums[0] = operate(+nums[0], +nums[1], sym)
             screen.textContent = nums[0];
