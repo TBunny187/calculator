@@ -70,15 +70,16 @@ buttons.forEach(button => {
             numsArray = [];
         } 
         else if(button.id === 'equals') {
-            if(button.id === 'divide' && (+nums[0] === 0 || +nums[1] === 0)) {
+            nums[1] = numsArray.join('');
+            if(sym === 'divide' && (+nums[0] === 0 || +nums[1] === 0)) {
                 alert("Cannot divide by 0! Now you must start over!")
                 clear();
+            } else {
+                nums[0] = operate(+nums[0], +nums[1], sym)
+                screen.textContent = nums[0];
+                numsArray = [];
+                sym = "";
             }
-            nums[1] = numsArray.join('');
-            nums[0] = operate(+nums[0], +nums[1], sym)
-            screen.textContent = nums[0];
-            numsArray = [];
-            sym = "";
         }
     })
 });
